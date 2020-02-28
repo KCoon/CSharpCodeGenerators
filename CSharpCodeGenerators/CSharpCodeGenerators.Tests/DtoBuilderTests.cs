@@ -20,12 +20,53 @@ namespace CSharpCodeGenerators
         [Fact]
         public void TestBuilder()
         {
-            var expected = new Builder.Candy(5, 27);
+            var expected = new Candy(5, 27);
             
-            var result =Builder.Candy.Build()
-                .Chocolate(5)
-                .Marshmallow(27)
+            var result = Candy.Build()
+                .WithChocolate(5)
+                .WithMarshmallow(27)
                 .Build();
+
+            result.Should().BeEquivalentTo(expected);
+        }
+        
+        [Fact]
+        public void TestBuilder2()
+        {
+            var expected = new Candy(5, 27);
+            
+            var result = new Candy.Builder()
+                .WithChocolate(5)
+                .WithMarshmallow(27)
+                .Build();
+
+            result.Should().BeEquivalentTo(expected);
+        }
+        
+        [Fact]
+        public void TestBuilder3()
+        {
+            var expected = new Candy(5, 27);
+            
+            var result = new Candy.Builder()
+            {
+                Chocolate = 5, 
+                Marshmallow = 27
+            }.Build();
+
+            result.Should().BeEquivalentTo(expected);
+        }
+        
+        [Fact]
+        public void TestBuilder4()
+        {
+            var expected = new Candy(5, 27);
+            
+            var result = new CandyBuilder()
+            {
+                Chocolate = 5, 
+                Marshmallow = 27
+            }.Build();
 
             result.Should().BeEquivalentTo(expected);
         }
